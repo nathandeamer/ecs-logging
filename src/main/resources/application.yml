@@ -9,6 +9,4 @@ spring:
     name: logging
   sleuth:
     opentracing:
-      enabled: true
-    propagation:
-      type: b3,w3c
+      enabled: false

@@ -17,8 +17,8 @@ See [logback-spring.xml](src/main/resources/logback-spring.xml)
 2. `kubectl apply -f kube/service.yaml`
 
 ### Test running:
-The service.yaml will expose the service on port 8085
-1. `curl localhost:8085/logging`
+The service.yaml will expose the service on port 8086
+1. `curl localhost:8086/logging`
 
 ## Deploy elastic search / kibana / filebeat
 1. Setup local-path-provisioner  
@@ -36,4 +36,5 @@ The service.yaml will expose the service on port 8085
 7. Install filebeat:  
 `helm install filebeat elastic/filebeat -f kube/filebeat/values.yaml`
 8. Setup filebeat as an index in kibana: http://localhost:5601/app/management/kibana/indexPatterns
-9. Look at your shiny new logs in Kibana
+9. Look at your shiny new logs in Kibana:
+![Kibana Screenshot](Kibana-screenshot.png "Kibana Screenshot")
