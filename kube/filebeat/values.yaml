@@ -1,0 +1,54 @@
+#The combination of filebeat.autodiscover  and processors seems to work - but I don’t know why.
+# https://stackoverflow.com/questions/62309373/configure-filebeat-hints-based-autodiscover-with-elastic-common-schema
+---
+daemonset:
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "512Mi"
+    limits:
+      cpu: "1000m"
+      memory: "1Gi"
+  filebeatConfig:
+    filebeat.yml: |
+      filebeat.inputs:
+      - type: container
+        paths:
+          - /var/log/containers/*.log
+        processors:
+        - add_kubernetes_metadata:
+            host: ${NODE_NAME}
+            matchers:
+            - logs_path:
+                logs_path: "/var/log/containers/"
+
+      filebeat.autodiscover:
+        providers:
+          - type: kubernetes
+            hints.enabled: true
+            json.keys_under_root: true
+            json.add_error_key: true
+            json.message_key: message
+
+      processors:
+        - decode_json_fields:
+            fields: ["message"]
+            process_array: false
+            max_depth: 3
+            target: ""
+            overwrite_keys: true
+            add_error_key: true
+            expand_keys: true
+
+      output.elasticsearch:
+        host: '${NODE_NAME}'
+        hosts: '${ELASTICSEARCH_HOSTS:elasticsearch-master:9200}'    
+
+deployment:
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "512Mi"
+    limits:
+      cpu: "1000m"
+      memory: "1Gi"

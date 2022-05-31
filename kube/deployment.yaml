@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logging
+  namespace: default
+  labels:
+    app: logging
+    team: Nathan
+spec:
+  selector:
+    matchLabels:
+      app: logging
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: logging
+        team: Nathan
+    spec:
+      containers:
+        - name: logging
+          image: logging:latest
+          imagePullPolicy: Never
+          ports:
+            - name: web
+              containerPort: 8080

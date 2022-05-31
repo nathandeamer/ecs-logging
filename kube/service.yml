@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: logging
+  labels:
+    app: logging
+    team: Nathan
+spec:
+  selector:
+    app: logging
+  ports:
+    - name: web
+      protocol: TCP
+      port: 8085
+      targetPort: 8080
+  type: LoadBalancer
