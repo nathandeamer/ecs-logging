@@ -10,3 +10,5 @@ spring:
   sleuth:
     opentracing:
       enabled: false
+
+logging.level.com.nathandeamer.logging: TRACE

@@ -14,7 +14,9 @@ public class LoggingController {
 
     @GetMapping("/logging")
     public ResponseEntity<String> logging() {
-        log.info("Hello world");
+        log.trace("This is a trace");
+        log.debug("This is a debug");
+        log.info("This is an info");
         log.warn("This is a warning");
         log.error("This is an error");
 
