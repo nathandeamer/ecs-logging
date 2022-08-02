@@ -9,6 +9,8 @@ spring:
     name: logging
   sleuth:
     opentracing:
-      enabled: false
-
-logging.level.com.nathandeamer.logging: TRACE
+      enabled: true
+    propagation:
+      type: b3,w3c
+  zipkin:
+    base-url: http://simplest-collector.default.svc.cluster.local:9411/
